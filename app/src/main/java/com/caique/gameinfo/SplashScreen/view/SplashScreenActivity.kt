@@ -21,7 +21,7 @@ class SplashScreenActivity : AppCompatActivity () {
 
         gameInfoViewModel.getGameInfoObservable("fields name, id; sort popularity desc; limit 50;")
             .observe(this, Observer {
-                Log.i("Response", it?.get(0)?.name)
+                Log.i("Response", it?.get(0)?.name + "")
             })
 
     }
