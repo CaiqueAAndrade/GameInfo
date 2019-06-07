@@ -5,9 +5,9 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import com.caique.gameinfo.GameInfo.utils.Constants.Companion.SPLASHSCREEN_CALL_GAMES
 import com.caique.gameinfo.GameInfo.viewmodel.GameInfoViewModel
 import com.caique.gameinfo.R
-import kotlinx.android.synthetic.main.splashscreen_activity.*
 
 class SplashScreenActivity : AppCompatActivity () {
 
@@ -19,10 +19,18 @@ class SplashScreenActivity : AppCompatActivity () {
 
         gameInfoViewModel = ViewModelProviders.of(this)[GameInfoViewModel::class.java]
 
-        gameInfoViewModel.getGameInfoObservable("fields name, id; sort popularity desc; limit 50;")
+        gameInfoViewModel.getGameInfoObservable(SPLASHSCREEN_CALL_GAMES)
             .observe(this, Observer {
-                Log.i("Response", it?.get(0)?.name + "")
+                if (it != null) {
+                    Log.i("Response", it.get(0).name + "")
+                    gameInfoViewModel.getCoverByGameId(it.get(0).id)
+                }
             })
+
+        gameInfoViewModel.coverResponseObservable().observe(this, Observer {
+            Log.i("Cover", it?.get(0)?.imageUrl + "")
+        })
+
 
     }
 
