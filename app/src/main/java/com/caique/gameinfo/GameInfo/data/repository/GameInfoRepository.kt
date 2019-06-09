@@ -16,14 +16,14 @@ class GameInfoRepository {
     private val service: CallApi = RetrofitClientInstance.getRetrofitInstance()
 
 
-    fun getGames(params: String): MutableLiveData<List<GameInfoResponse>> {
-        val gameInfoResponseMutableLiveData: MutableLiveData<List<GameInfoResponse>> = MutableLiveData()
+    fun getGames(params: String): MutableLiveData<ArrayList<GameInfoResponse>> {
+        val gameInfoResponseMutableLiveData: MutableLiveData<ArrayList<GameInfoResponse>> = MutableLiveData()
         val requestBody: RequestBody = RequestBody.create(MediaType.parse(REQUESTBODY_TAG), params)
-        service.getGames(USER_KEY, requestBody).enqueue(object : retrofit2.Callback<List<GameInfoResponse>> {
-            override fun onResponse(call: Call<List<GameInfoResponse>>, response: Response<List<GameInfoResponse>>) {
+        service.getGames(USER_KEY, requestBody).enqueue(object : retrofit2.Callback<ArrayList<GameInfoResponse>> {
+            override fun onResponse(call: Call<ArrayList<GameInfoResponse>>, response: Response<ArrayList<GameInfoResponse>>) {
                 gameInfoResponseMutableLiveData.postValue(response.body())
             }
-            override fun onFailure(call: Call<List<GameInfoResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<ArrayList<GameInfoResponse>>, t: Throwable) {
                 gameInfoResponseMutableLiveData.postValue(null)
             }
         })

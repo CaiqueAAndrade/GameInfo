@@ -15,22 +15,22 @@ class GameInfoViewModel(application: Application) : AndroidViewModel(application
     private val gameInfoRepository = GameInfoRepository.GameInfoRepositoryProvider.provideGameInfoRepository()
     private val coverRepository = CoverRepository.CoverRepositoryProvider.provideCoverRepository()
 
-    private val coverResponse: MutableLiveData<List<CoverResponse>> = MutableLiveData()
+    private val coverResponse: MutableLiveData<ArrayList<CoverResponse>> = MutableLiveData()
 
 
-    fun coverResponseObservable() : MutableLiveData<List<CoverResponse>> {
+    fun coverResponseObservable() : MutableLiveData<ArrayList<CoverResponse>> {
         return coverResponse
     }
 
-    fun getGameInfoObservable(params: String): LiveData<List<GameInfoResponse>> {
+    fun getGameInfoObservable(params: String): LiveData<ArrayList<GameInfoResponse>> {
         return gameInfoRepository.getGames(params)
     }
 
     fun getCoverByGameId(gameId: Int) {
-        val coverResponseObserver: LiveData<List<CoverResponse>> = coverRepository.getCover(gameId)
+        val coverResponseObserver: LiveData<ArrayList<CoverResponse>> = coverRepository.getCover(gameId)
 
-        coverResponseObserver.observeForever(object : Observer<List<CoverResponse>>{
-            override fun onChanged(t: List<CoverResponse>?) {
+        coverResponseObserver.observeForever(object : Observer<ArrayList<CoverResponse>>{
+            override fun onChanged(t: ArrayList<CoverResponse>?) {
                 coverResponse.postValue(coverResponseObserver.value)
                 coverResponseObserver.removeObserver(this)
             }
