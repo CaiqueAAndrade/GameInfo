@@ -7,5 +7,5 @@ import com.google.gson.annotations.SerializedName
 @Entity
 class GameInfoResponse(@PrimaryKey @SerializedName("id") val id: Int,
                        @SerializedName("name") val name: String,
-                       val imageUrl: String)
+                       var imageUrl: String)
 

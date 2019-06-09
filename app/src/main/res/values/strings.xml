@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GameInfo</string>
+    <string name="connection_error">Erro na conexão</string>
 </resources>
